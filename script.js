@@ -31,7 +31,7 @@ function printRow(text, isPrompt = false, allowHTML = false) {
     row.className = "output-row";
     
     if (isPrompt) {
-        row.innerHTML = `<span class="prompt">guest@portfolio:/#</span> ${text}`;
+        row.innerHTML = `<span class="prompt">firhan@portfolio:/#</span> ${text}`;
     } else if (allowHTML) {
         row.innerHTML = text;
     } else {
@@ -43,16 +43,11 @@ function printRow(text, isPrompt = false, allowHTML = false) {
     body.scrollTop = body.scrollHeight;
 }
 
-// 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
-// 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
-// Locate this function inside your script.js file
-// 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration - Fixed Route Parameters)
 async function initializeAutomatedWriteups() {
-    // FIX: /contents/ must be present right before your folder target name
+    // Clean string using standard backticks and correct GitHub endpoints
     const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/writeups`;
     
-    // Target element pointer matching your new structural pages container mapping
-    const gridContainer = document.querySelector('#page-writeups .grid-container');
+    const gridContainer = document.querySelector('.grid-container');
     
     try {
         const response = await fetch(apiUrl);
@@ -64,14 +59,12 @@ async function initializeAutomatedWriteups() {
 
         files.forEach(file => {
             if (file.name.endsWith('.md')) {
-                // Registering element dynamically into your console terminal environment tree
                 filesystem.children[file.name] = {
                     type: 'file',
                     isExternal: true,
                     path: file.name
                 };
 
-                // Formulating grid components visually
                 const card = document.createElement('div');
                 card.className = 'grid-card';
                 card.setAttribute('onclick', `loadWriteup('${file.name}')`);
@@ -90,6 +83,7 @@ async function initializeAutomatedWriteups() {
             }
         });
         
+        // Success check
         printRow("[+] Dynamic writeups database loaded and synchronized with GitHub repository.");
     } catch (err) {
         console.error(err);
