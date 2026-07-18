@@ -211,5 +211,19 @@ function switchPage(pageId) {
     }
 }
 
+function toggleMobileMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const burger = document.querySelector('.mobile-menu-toggle');
+    
+    if (sidebar) {
+        sidebar.classList.toggle('menu-active');
+        
+        // Optional: toggle a state on the burger button itself for visual flair
+        if (burger) {
+            burger.classList.toggle('open');
+        }
+    }
+}
+
 // Run automation engine immediately when page finishes mounting
 window.onload = initializeAutomatedWriteups;

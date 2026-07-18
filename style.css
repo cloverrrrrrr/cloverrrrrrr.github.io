@@ -206,44 +206,30 @@ body {
 }
 .action-btn:hover { border-color: var(--matrix-green); box-shadow: 0 0 8px rgba(0, 255, 102, 0.2); }
 
-/* Right Main Workspace */
+/* Right Main Workspace Placement Centering */
 .main-content {
     flex: 1;
     overflow-y: auto;
-    padding: 40px;
+    padding: 60px 40px;
     background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Terminal Bio Styles */
-.terminal-app { border: none; background: transparent; box-shadow: none; margin-bottom: 40px; }
-.terminal-intro h3 { color: var(--matrix-green); font-size: 18px; margin-bottom: 20px; }
-.bio-line { color: var(--matrix-green); font-size: 14px; margin: 8px 0; }
-.bio-line span { color: var(--dim-green); }
-
-/* Skills Grid with Progress Bars */
-.skills-title { color: var(--matrix-green); font-size: 16px; margin: 30px 0 15px 0; }
-.skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px; max-width: 800px; margin-bottom: 20px;
-}
-.skill-item span { color: var(--matrix-green); font-size: 13px; margin-bottom: 5px; display: inline-block; }
-.skill-bar {
-    width: 100%; height: 6px; border: 1px solid var(--dim-green);
-    border-radius: 3px; background: #000; padding: 1px;
-}
-.skill-fill { height: 100%; background-color: var(--matrix-green); border-radius: 2px; box-shadow: 0 0 5px var(--matrix-green); }
-
-/* Remove terminal wrapper borders */
-.terminal-header { display: none; }
-
-/* Multipage Tab Management Overlay Configuration */
+/* Restrict maximum width inside pages to hold text neatly in the center */
 .page-view {
-    display: none; /* Hide background segments automatically */
+    width: 100%;
+    max-width: 900px;
     animation: fadeIn 0.4s ease forwards;
 }
 
+/* Multipage Tab Management Overlay Configuration */
+.page-view {
+    display: none;
+}
 .page-view.active {
-    display: block; /* Show active selected target folder window */
+    display: block;
 }
 
 @keyframes fadeIn {
@@ -261,7 +247,7 @@ body {
 }
 
 /* Projects Listing Page */
-.projects-list { display: flex; flex-direction: column; gap: 20px; }
+.projects-list { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 .project-card {
     border: 1px solid var(--dim-green);
     background: #020302;
@@ -276,15 +262,39 @@ body {
 /* Specs Box elements */
 .specs-box {
     background: #020302; border: 1px solid var(--dim-green);
-    padding: 30px; border-radius: 4px; line-height: 1.8;
+    padding: 30px; border-radius: 4px; line-height: 1.8; width: 100%;
+    box-sizing: border-box;
 }
 .specs-box strong { color: var(--matrix-green); }
 
+/* Terminal Bio Styles */
+.terminal-app { border: none; background: transparent; box-shadow: none; margin-bottom: 40px; width: 100%; }
+.terminal-intro h3 { color: var(--matrix-green); font-size: 18px; margin-bottom: 20px; }
+.bio-line { color: var(--matrix-green); font-size: 14px; margin: 8px 0; }
+.bio-line span { color: var(--dim-green); }
+
+/* Skills Grid with Progress Bars */
+.skills-title { color: var(--matrix-green); font-size: 16px; margin: 30px 0 15px 0; }
+.skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px; max-width: 800px; margin-bottom: 20px;
+}
+.skill-item span { color: var(--matrix-green); font-size: 13px; margin-bottom: 5px; display: inline-block; }
+.skill-bar {
+    width: 100%; height: 6px; border: 1px solid var(--dim-green);
+    border-radius: 3px; background: #000; padding: 1px;
+}
+.skill-fill { height: 100%; background-color: var(--matrix-green); border-radius: 2px; box-shadow: 0 0 5px var(--matrix-green); }
+
+/* Default state: Hide desktop burger control items */
+.burger-container { display: none; }
+.mobile-menu-toggle { display: none; }
+
+
 /* ==========================================================
-   MOBILE & TABLET OPTIMIZATIONS (Sidebar Drawer Configuration)
+   MOBILE & TABLET OPTIMIZATIONS (Centered Slide Drawer Framework)
    ========================================================== */
 @media (max-width: 768px) {
-    /* 1. Reset layout positioning to fit viewport frames */
     .dashboard-layout {
         position: relative;
         width: 100vw;
@@ -292,69 +302,79 @@ body {
         overflow: hidden;
     }
 
-    /* 2. Turn the sidebar into a hidden slide-out drawer canvas */
+    /* Fixed slide drawer coordinates */
     .sidebar {
-        position: absolute;
+        position: fixed;
         top: 0;
-        left: -280px; /* Hide completely off-screen by default */
-        height: 100%;
+        left: -280px; 
+        height: 100vh;
         width: 260px;
         z-index: 1000;
-        transition: transform 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+        transition: left 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
         box-shadow: 5px 0 15px rgba(0, 0, 0, 0.8);
     }
 
-    /* Active helper state triggered via JavaScript toggle class */
+    /* Smooth translation property coordinate */
     .sidebar.menu-active {
-        transform: translateX(280px); /* Slide drawer cleanly into viewport view */
+        left: 0;
     }
 
-    /* 3. Let main workspace fill full screen layout */
+    /* Shift padding to allow layout margins on small mobile frames */
     .main-content {
-        width: 100%;
-        padding: 70px 20px 30px 20px; /* Leave space at top for menu bar */
+        padding: 40px 20px 30px 20px;
+        align-items: stretch;
     }
 
-    /* 4. Fix grid columns layout to prevent content crushing */
+    /* Reveal the block wrapper */
+    .burger-container {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 25px;
+    }
+
+    /* Elegant neon 3-line burger implementation */
+    .mobile-menu-toggle {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 26px;
+        height: 18px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 950;
+    }
+
+    .mobile-menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: var(--matrix-green);
+        border-radius: 2px;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 0 5px var(--matrix-green);
+    }
+
+    /* Optional X transform configuration transitions */
+    .mobile-menu-toggle.open span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .mobile-menu-toggle.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .mobile-menu-toggle.open span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Single-column collapse engines for grids */
     .skills-grid, .grid-container {
         grid-template-columns: 1fr !important;
         gap: 15px;
     }
 
-    /* 5. Mobile Toggle HUD Button Panel Overlay */
-    .mobile-nav-bar {
-        display: flex !important;
-        align-items: center;
-        justify-content: space-between;
-        position: absolute;
-        top: 0; left: 0; width: 100%;
-        padding: 15px 20px;
-        background-color: rgba(5, 6, 5, 0.9);
-        border-bottom: 1px solid var(--dim-green);
-        z-index: 900;
-        box-sizing: border-box;
-        backdrop-filter: blur(4px);
-    }
-
-    .mobile-menu-toggle {
-        background: transparent;
-        border: 1px solid var(--matrix-green);
-        color: var(--matrix-green);
-        padding: 6px 12px;
-        font-family: var(--font-stack);
-        font-size: 13px;
-        cursor: pointer;
-        border-radius: 2px;
-        box-shadow: 0 0 5px rgba(0, 255, 102, 0.2);
-    }
-
-    /* 6. Prevent long words or paths from stretching viewport container widths */
     .output-row, .bio-line, #terminal-input {
         font-size: 14px;
     }
-}
-
-/* Hide mobile banner elements on normal monitor display sizes */
-.mobile-nav-bar {
-    display: none;
 }
