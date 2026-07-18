@@ -7,8 +7,8 @@ let filesystem = {
     type: 'dir',
     name: 'root',
     children: {
-        'about.txt': { type: 'file', isExternal: false, content: "PROFILE:\nName: Cyber Security Enthusiast\nFocus: AppSec, Pentesting & Vulnerability Research." },
-        'skills.txt': { type: 'file', isExternal: false, content: "CAPABILITIES:\n- Code   : Python, JavaScript, Bash, Go\n- Audits : Burp Suite, Ghidra, Wireshark" }
+        'about.txt': { type: 'file', isExternal: false, content: "PROFILE:\nName: Firhan\nFocus: AppSec, Pentesting & Vulnerability Research, Red Teaming." },
+        'skills.txt': { type: 'file', isExternal: false, content: "CAPABILITIES:\n- Code   : Python, C, Bash\n- Tools : Burp Suite, Nmap, Metasploit" }
     }
 };
 
@@ -45,11 +45,14 @@ function printRow(text, isPrompt = false, allowHTML = false) {
 
 // 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
 // 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
+// Locate this function inside your script.js file
+// 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration - Fixed Route Parameters)
 async function initializeAutomatedWriteups() {
+    // FIX: /contents/ must be present right before your folder target name
     const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/writeups`;
     
-    // Explicitly target the grid container outside the terminal box
-    const gridContainer = document.querySelector('.grid-section .grid-container');
+    // Target element pointer matching your new structural pages container mapping
+    const gridContainer = document.querySelector('#page-writeups .grid-container');
     
     try {
         const response = await fetch(apiUrl);
@@ -57,19 +60,18 @@ async function initializeAutomatedWriteups() {
         
         const files = await response.json();
         
-        // Clear old structural placeholder messages outside the terminal
         if (gridContainer) gridContainer.innerHTML = '';
 
         files.forEach(file => {
             if (file.name.endsWith('.md')) {
-                // A. Register it into the virtual interactive filesystem inside the console
+                // Registering element dynamically into your console terminal environment tree
                 filesystem.children[file.name] = {
                     type: 'file',
                     isExternal: true,
                     path: file.name
                 };
 
-                // B. Generate and inject visual grid cards outside the terminal
+                // Formulating grid components visually
                 const card = document.createElement('div');
                 card.className = 'grid-card';
                 card.setAttribute('onclick', `loadWriteup('${file.name}')`);
@@ -175,6 +177,45 @@ input.addEventListener('keydown', async function(e) {
         }
     }
 });
+
+// Function to copy email to clipboard from the sidebar
+function copyEmail() {
+    const email = "your.email@example.com"; // <-- PUT YOUR REAL EMAIL HERE
+    navigator.clipboard.writeText(email).then(() => {
+        // Find the button and change text temporarily to show success
+        const btn = document.querySelector('.action-btn');
+        const originalText = btn.innerText;
+        btn.innerText = "Copied!";
+        btn.style.borderColor = "var(--matrix-green)";
+        
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.borderColor = "var(--dim-green)";
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy email: ', err);
+    });
+}
+
+// Dynamic Router Engine function to switch "page views" safely
+function switchPage(pageId) {
+    // A. Remove selection status color from old navigation anchors
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // B. Find clicked button target context and highlight it
+    const activeBtn = Array.from(document.querySelectorAll('.nav-btn'))
+                           .find(btn => btn.innerText.toLowerCase().includes(pageId));
+    if (activeBtn) activeBtn.classList.add('active');
+
+    // C. Deactivate all page section windows
+    document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
+
+    // D. Mount the targeted layout canvas panel framework
+    const selectedPage = document.getElementById(`page-${pageId}`);
+    if (selectedPage) {
+        selectedPage.classList.add('active');
+    }
+}
 
 // Run automation engine immediately when page finishes mounting
 window.onload = initializeAutomatedWriteups;

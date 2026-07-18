@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@portfolio_</title>
+    <title>firhan@portfolio_</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -11,58 +11,113 @@
 <body>
     <div class="scanline"></div>
 
-    <!-- Sticky Navigation HUD Header -->
-    <header class="navbar">
-        <div class="nav-logo">>_ root@portfolio_</div>
-        <nav class="nav-links">
-            <a href="#home" class="nav-btn active" onclick="navigateTab(this)">./home.exe</a>
-            <a href="#writing" class="nav-btn" onclick="navigateTab(this)">./writeups.sh</a>
-        </nav>
-    </header>
-
-    <div class="main-container">
-        
-        <!-- Interactive Terminal Screen Simulation Panel Box -->
-        <section id="home" class="terminal-app">
-            <div class="terminal-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="header-text">terminal.app</span>
+    <div class="dashboard-layout">
+        <!-- SIDEBAR CONTAINER -->
+        <aside class="sidebar">
+            <div class="profile-header">
+                <span class="dot green blink"></span>
+                <h2 class="profile-name">Firhan</h2>
             </div>
-            <div class="terminal-body" id="terminal-body">
-                <div class="output-row">Welcome to the interactive portfolio console. Type <span class="highlight-green">help</span> to query operations.</div>
-                <br>
-                <!-- Runtime input insertion row marker -->
-                <div class="input-line-container" id="input-container">
-                    <span class="prompt">guest@portfolio:/#</span>
-                    <input type="text" id="terminal-input" autocomplete="off" autofocus spellcheck="false">
+            <div class="profile-title">Offensive Security | Red Team | Penetration Tester</div>
+            
+            <img src="firhan.jpg" alt="Profile" class="profile-pic">
+
+            <!-- Tab Switching Nav System -->
+            <nav class="side-nav">
+                <a href="javascript:void(0)" class="nav-btn active" onclick="switchPage('home')">Home / Console</a>
+                <a href="javascript:void(0)" class="nav-btn" onclick="switchPage('writeups')">Writeups</a>
+                <a href="javascript:void(0)" class="nav-btn" onclick="switchPage('projects')">Projects</a>
+                <a href="javascript:void(0)" class="nav-btn" onclick="switchPage('about')">About / Specs</a>
+            </nav>
+
+            <div class="sidebar-actions">
+                <button class="action-btn" onclick="copyEmail()">Copy Email</button>
+            </div>
+        </aside>
+
+        <!-- MAIN VIEWPORT PANELS -->
+        <main class="main-content">
+            
+            <!-- PAGE 1: Home/Interactive Terminal Console View -->
+            <section id="page-home" class="page-view active">
+                <div class="terminal-app">
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="terminal-intro">
+                            <h3>Welcome to the portfolio of root user.</h3>
+                            <p class="bio-line">🚀 <span>Specializing in:</span> Application Security, Pentesting, Red Teaming, Active Directory</p>
+                            <p class="bio-line">📍 <span>Location:</span> Available for Remote Work</p>
+                            
+                            <h4 class="skills-title">Core Skills Overview</h4>
+                            <div class="skills-grid">
+                                <div class="skill-item">
+                                    <span>Python</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Burp Suite</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Metasploit</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Nmap</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Impacket</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span>Active Directory</span>
+                                    <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="output-row"><br>Type <span class="highlight-green">help</span> for available commands or use navigation menu.</div>
+                        
+                        <div class="input-line-container" id="input-container">
+                            <span class="prompt">$</span>
+                            <input type="text" id="terminal-input" autocomplete="off" autofocus spellcheck="false" placeholder="Enter command...">
+                        </div>
+                    </div>
                 </div>
+            </section>
+
+            <!-- PAGE 2: Dynamic Writeups Archive Page Grid -->
+            <section id="page-writeups" class="page-view">
+                <h2 class="page-header">// SYSTEM SECURE WRITEUPS</h2>
                 <div class="grid-container">
-                    <p style="color: var(--text-color);">[*] Querying system folder telemetry...</p>
+                    <!-- GitHub API dynamic cards automatically load here -->
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Category Grid Links Interface Block -->
-        <section id="writing" class="grid-section">
-            <div class="grid-container">
+            <!-- PAGE 3: Static Projects Showroom Page -->
+            <section id="page-projects" class="page-view">
+                <h2 class="page-header">// DEPLOYED CODE BASES</h2>
+                <div class="projects-list">
+                    <div class="project-card">
+                        <h3 class="proj-title"><a href="https://github.com" target="_blank">./NetScannerX</a></h3>
+                        <p class="proj-desc">An asynchronous multithreaded network security mapping script designed to map exposed endpoints.</p>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <div class="scroll-prompt">
-            <p>scroll_down()</p>
-            <div class="arrow-down"></div>
-        </div>
+            <!-- PAGE 4: Detailed About Page Specs -->
+            <section id="page-about" class="page-view">
+                <h2 class="page-header">// OPERATIONAL CHARACTERISTICS</h2>
+                <div class="specs-box">
+                    <p><strong>Operative Tag:</strong> Administrator / Security Analyst</p>
+                    <p><strong>Primary Frameworks:</strong> Django, React, FastAPI, Node.js</p>
+                    <p><strong>Security Certifications:</strong> CompTIA Security+, eJPT, OSCP Candidate</p>
+                    <hr style="border-color: var(--dim-green); margin: 20px 0;">
+                    <p style="color: var(--text-color);">This interface maps code architecture cleanly via API telemetry arrays. Run commands inside the home console screen or toggle views to access logs.</p>
+                </div>
+            </section>
+        </main>
     </div>
-
-    <footer class="cyber-footer">
-        <p>© 2026 Creative.Hacker.Portfolio - Crafted with code and creativity</p>
-        <div class="footer-stats">
-            System.Status: <span class="highlight-green">Online</span> | Build.Version: <span class="highlight-green">v1.2.0</span>
-        </div>
-    </footer>
 
     <!-- Markdown Modal Display Layer -->
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
