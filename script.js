@@ -45,6 +45,7 @@ function printRow(text, isPrompt = false, allowHTML = false) {
 
 // 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
 async function initializeAutomatedWriteups() {
+    // Added /contents/ right before the writeups folder path
     const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/writeups`;
     const gridContainer = document.querySelector('.grid-container');
     
@@ -54,7 +55,7 @@ async function initializeAutomatedWriteups() {
         
         const files = await response.json();
         
-        // Clear any old structural items from your static HTML layout mockup
+        // Clear old structural placeholder cards
         gridContainer.innerHTML = '';
 
         files.forEach(file => {
@@ -80,13 +81,19 @@ async function initializeAutomatedWriteups() {
             }
         });
         
+        // Clear out any old error or loading messages in the terminal window
+        body.querySelectorAll('.output-row').forEach(row => {
+            if (row.innerText.includes('Automation Sync Failure') || row.innerText.includes('telemetry')) {
+                row.remove();
+            }
+        });
+
         printRow("[+] Dynamic writeups database loaded and synchronized with GitHub repository.");
     } catch (err) {
         console.error(err);
         printRow("[-] Automation Sync Failure: Defaulting to local repository files mode.");
     }
 }
-
 // Fetch the targeted CTF markdown file asynchronously and displays it in the modal
 async function loadWriteup(fileName) {
     const overlay = document.getElementById('modal-overlay');
