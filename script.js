@@ -59,21 +59,24 @@ async function initializeAutomatedWriteups() {
         gridContainer.innerHTML = '';
 
         files.forEach(file => {
-            // Check if it's a markdown file
             if (file.name.endsWith('.md')) {
-                // A. Register it into the virtual interactive filesystem automatically
+                // 1. Automatically register it to your virtual bash console tree
                 filesystem.children[file.name] = {
                     type: 'file',
                     isExternal: true,
                     path: file.name
                 };
 
-                // B. Generate and inject visual grid cards automatically
+                // 2. Generate clean custom-styled blocks automatically 
                 const card = document.createElement('div');
                 card.className = 'grid-card';
                 card.setAttribute('onclick', `loadWriteup('${file.name}')`);
+                
+                // Pick an icon based on content or fallback to code tags
+                const icon = file.name.includes('overflow') ? '🖳' : '&lt;/&gt;';
+                
                 card.innerHTML = `
-                    <div class="card-icon">&lt;/&gt;</div>
+                    <div class="card-icon">${icon}</div>
                     <h4 class="card-title">./${file.name}</h4>
                     <p class="card-subtitle">Execute via command line: cat ${file.name}</p>
                 `;
