@@ -44,10 +44,12 @@ function printRow(text, isPrompt = false, allowHTML = false) {
 }
 
 // 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
+// 2. AUTOMATIC FILINGS DISCOVERY (GitHub API Integration)
 async function initializeAutomatedWriteups() {
-    // Added /contents/ right before the writeups folder path
     const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${REPO_NAME}/contents/writeups`;
-    const gridContainer = document.querySelector('.grid-container');
+    
+    // Explicitly target the grid container outside the terminal box
+    const gridContainer = document.querySelector('.grid-section .grid-container');
     
     try {
         const response = await fetch(apiUrl);
@@ -55,24 +57,23 @@ async function initializeAutomatedWriteups() {
         
         const files = await response.json();
         
-        // Clear old structural placeholder cards
-        gridContainer.innerHTML = '';
+        // Clear old structural placeholder messages outside the terminal
+        if (gridContainer) gridContainer.innerHTML = '';
 
         files.forEach(file => {
             if (file.name.endsWith('.md')) {
-                // 1. Automatically register it to your virtual bash console tree
+                // A. Register it into the virtual interactive filesystem inside the console
                 filesystem.children[file.name] = {
                     type: 'file',
                     isExternal: true,
                     path: file.name
                 };
 
-                // 2. Generate clean custom-styled blocks automatically 
+                // B. Generate and inject visual grid cards outside the terminal
                 const card = document.createElement('div');
                 card.className = 'grid-card';
                 card.setAttribute('onclick', `loadWriteup('${file.name}')`);
                 
-                // Pick an icon based on content or fallback to code tags
                 const icon = file.name.includes('overflow') ? '🖳' : '&lt;/&gt;';
                 
                 card.innerHTML = `
@@ -80,17 +81,13 @@ async function initializeAutomatedWriteups() {
                     <h4 class="card-title">./${file.name}</h4>
                     <p class="card-subtitle">Execute via command line: cat ${file.name}</p>
                 `;
-                gridContainer.appendChild(card);
+                
+                if (gridContainer) {
+                    gridContainer.appendChild(card);
+                }
             }
         });
         
-        // Clear out any old error or loading messages in the terminal window
-        body.querySelectorAll('.output-row').forEach(row => {
-            if (row.innerText.includes('Automation Sync Failure') || row.innerText.includes('telemetry')) {
-                row.remove();
-            }
-        });
-
         printRow("[+] Dynamic writeups database loaded and synchronized with GitHub repository.");
     } catch (err) {
         console.error(err);
