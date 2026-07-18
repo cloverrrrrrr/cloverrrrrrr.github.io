@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>root@portfolio_</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="scanline"></div>
+
+    <!-- Sticky Navigation HUD Header -->
+    <header class="navbar">
+        <div class="nav-logo">>_ root@portfolio_</div>
+        <nav class="nav-links">
+            <a href="#home" class="nav-btn active" onclick="navigateTab(this)">./home.exe</a>
+            <a href="#writing" class="nav-btn" onclick="navigateTab(this)">./writeups.sh</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        
+        <!-- Interactive Terminal Screen Simulation Panel Box -->
+        <section id="home" class="terminal-app">
+            <div class="terminal-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="header-text">terminal.app</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="output-row">Welcome to the interactive portfolio console. Type <span class="highlight-green">help</span> to query operations.</div>
+                <br>
+                <!-- Runtime input insertion row marker -->
+                <div class="input-line-container" id="input-container">
+                    <span class="prompt">guest@portfolio:/#</span>
+                    <input type="text" id="terminal-input" autocomplete="off" autofocus spellcheck="false">
+                </div>
+                <div class="grid-container">
+                    <p style="color: var(--text-color);">[*] Querying system folder telemetry...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Grid Links Interface Block -->
+        <section id="writing" class="grid-section">
+            <div class="grid-container">
+                <div class="grid-card" onclick="loadWriteup('cookie_monster.md')">
+                    <div class="card-icon">&lt;/&gt;</div>
+                    <h4 class="card-title">./cookie_monster.md</h4>
+                    <p class="card-subtitle">Execute via command line: cat cookie_monster.md</p>
+                </div>
+
+                <div class="grid-card" onclick="loadWriteup('buffer_overflow.md')">
+                    <div class="card-icon">🖳</div>
+                    <h4 class="card-title">./buffer_overflow.md</h4>
+                    <p class="card-subtitle">Execute via command line: cat buffer_overflow.md</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="scroll-prompt">
+            <p>scroll_down()</p>
+            <div class="arrow-down"></div>
+        </div>
+    </div>
+
+    <footer class="cyber-footer">
+        <p>© 2026 Creative.Hacker.Portfolio - Crafted with code and creativity</p>
+        <div class="footer-stats">
+            System.Status: <span class="highlight-green">Online</span> | Build.Version: <span class="highlight-green">v1.2.0</span>
+        </div>
+    </footer>
+
+    <!-- Markdown Modal Display Layer -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close-btn" onclick="closeModal()">[CLOSE X]</button>
+            <div id="markdown-viewer"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
