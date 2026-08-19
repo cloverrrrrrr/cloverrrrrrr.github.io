@@ -4,7 +4,7 @@ description: Have some fun! There might be multiple ways to get user access.
 
 # LazyAdmin - THM
 
-### Scanning
+### Enumeration
 
 first I scan the network of the machine to find the port and service on the network of this machine
 
@@ -68,7 +68,7 @@ INSERT INTO `%--%_options` VALUES(\'1\',\'global_setting\',\'a:17:{s:4:\\"name\\
 
 ***
 
-### Gaining The Shell
+### Exploitation
 
 this cms is also vulnerable to Code Execution as we also found that exploit for SweetRice cms
 

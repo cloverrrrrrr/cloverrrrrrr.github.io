@@ -8,7 +8,7 @@ description: >-
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-### **RECON**
+### **Enumeration**
 
 I started with nmap scan and as we can see that we’ve got 2 open port. On port 22 for ssh, and 80 for http.
 
@@ -32,7 +32,7 @@ We find an interesting file here as we can see there’s a directory called **/.
 
 ***
 
-### **EXPLOITATION**
+### **Exploitation**
 
 There’s a file called _id\_rsa,_ that contain an ssh key, and since we doesn’t know the username of the ssh I’ve built a script for finding the right username, before that first thing first we’ve to save the ssh key that we find.
 

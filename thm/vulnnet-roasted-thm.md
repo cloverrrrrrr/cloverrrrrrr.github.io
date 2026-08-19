@@ -9,9 +9,7 @@ description: >-
 
 <figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
-### Initial Enumeration
-
-#### NMAP
+### Enumeration
 
 I began by performing a service scan against the target.
 
@@ -89,7 +87,7 @@ Although these documents did not directly reveal credentials, they confirmed nam
 
 ***
 
-### Initial Foothold
+### Foothold
 
 #### Enumerating Domain Users
 
